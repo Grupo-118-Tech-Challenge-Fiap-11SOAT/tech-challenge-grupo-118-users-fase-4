@@ -33,11 +33,9 @@ public class EmployeeStepDefinitions : IClassFixture<IntegrationTestFixture>
             {"Security:Key", "ea9083a270357e95a1bdb53188a66bb4"},
         };
 
-        // Cria o IConfiguration diretamente da memória
         _configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(myConfigurationSettings)
             .Build();
-
 
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseSqlServer(_fixture.ConnectionString)
