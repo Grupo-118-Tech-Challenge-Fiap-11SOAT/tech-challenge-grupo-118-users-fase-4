@@ -155,26 +155,26 @@ namespace Tests.BDD.Feature
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
                             "Field",
                             "Value"});
-                table3.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Cpf",
                             "43834548014"});
-                table3.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Name",
                             "Ana"});
-                table3.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Surname",
                             "Souza"});
-                table3.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Email",
                             "ana.souza@empresa.com"});
-                table3.AddRow(new string[] {
+                table1.AddRow(new string[] {
                             "Password",
                             "Senha@123"});
 #line 8
-    await testRunner.GivenAsync("I have the data of a new employee:", ((string)(null)), table3, "Given ");
+    await testRunner.GivenAsync("I have the data of a new employee:", ((string)(null)), table1, "Given ");
 #line hidden
 #line 15
     await testRunner.WhenAsync("I request the employee registration", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
@@ -244,20 +244,20 @@ namespace Tests.BDD.Feature
             else
             {
                 await this.ScenarioStartAsync();
-                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
                             "Field",
                             "Value"});
-                table4.AddRow(new string[] {
+                table2.AddRow(new string[] {
                             "Cpf",
                             ""});
-                table4.AddRow(new string[] {
+                table2.AddRow(new string[] {
                             "Name",
                             "Error"});
-                table4.AddRow(new string[] {
+                table2.AddRow(new string[] {
                             "Password",
                             "Senha@123"});
 #line 25
-    await testRunner.GivenAsync("I have the data of a new employee:", ((string)(null)), table4, "Given ");
+    await testRunner.GivenAsync("I have the data of a new employee:", ((string)(null)), table2, "Given ");
 #line hidden
 #line 30
     await testRunner.WhenAsync("I request the employee registration", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
