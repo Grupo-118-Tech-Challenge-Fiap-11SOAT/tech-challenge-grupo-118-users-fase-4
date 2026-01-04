@@ -1,7 +1,9 @@
 ﻿using Domain.Base.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Domain.Employee.Exceptions;
 
+[ExcludeFromCodeCoverage]
 public class NameNullOrEmptyException : DomainException
 {
     /// <summary>
