@@ -29,7 +29,7 @@ RUN dotnet publish "TechChallengeUsers.API.csproj" \
 FROM base AS final
 WORKDIR /app
 
-COPY --from=publish --chown=app:app /app/publish .
+COPY --from=publish /app/publish .
 
 USER app
 
