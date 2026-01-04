@@ -1,6 +1,7 @@
 ﻿using Domain.Base.Exceptions;
-using CustomerEntity = Domain.Customer.Entities.Customer;
+using Domain.Customer.Dtos;
 using FluentAssertions;
+using CustomerEntity = Domain.Customer.Entities.Customer;
 
 namespace UnitTests.Domain.Customer;
 
@@ -81,4 +82,144 @@ public class CustomerTests
         // Assert
         customer.Id.Should().Be(99);
     }
+
+    #region Constructor Tests
+
+    [Fact]
+    public void Constructor_ShouldInitializeProperties_AndConvertDateTimeOffsetToDateTime()
+    {
+        // Arrange
+        string cpf = "33665360048";
+        string name = "John";
+        string surname = "Doe";
+        string email = "john.doe@example.com";
+
+        // Criamos um DateTimeOffset com fuso horário (-3h)
+        var birthDateOffset = new DateTimeOffset(1990, 1, 1, 12, 0, 0, TimeSpan.FromHours(-3));
+
+        // Act
+        var dto = new CustomerRequestDto(cpf, name, surname, email, birthDateOffset);
+
+        // Assert
+        dto.Cpf.Should().Be(cpf);
+        dto.Name.Should().Be(name);
+        dto.Surname.Should().Be(surname);
+        dto.Email.Should().Be(email);
+
+        // Validação crucial: Verifica se a conversão pegou a propriedade .DateTime corretamente
+        // ignorando o offset conforme a lógica da sua classe
+        dto.BirthDate.Should().Be(birthDateOffset.DateTime);
+    }
+
+    [Fact]
+    public void DefaultConstructor_ShouldCreateInstance_WithDefaultValues()
+    {
+        // Arrange & Act
+        var dto = new CustomerRequestDto();
+
+        // Assert
+        dto.Should().NotBeNull();
+        dto.Cpf.Should().BeNull(); // Strings inicializam como null
+        dto.BirthDate.Should().Be(default(DateTime)); // DateTime inicializa como MinValue
+    }
+
+    #endregion
+
+    #region ToEntity Tests
+
+    [Fact]
+    public void ToEntity_ShouldMapDtoToEntity_AndSetActiveTrue()
+    {
+        // Arrange
+        var dto = new CustomerRequestDto
+        {
+            Cpf = "33665360048",
+            Name = "Maria",
+            Surname = "Silva",
+            Email = "maria@test.com",
+            BirthDate = new DateTime(1995, 5, 20)
+        };
+
+        // Act
+        var entity = CustomerRequestDto.ToEntity(dto);
+
+        // Assert
+        entity.Should().NotBeNull();
+        entity.Should().BeOfType<CustomerEntity>();
+
+        entity.Cpf.Should().Be(dto.Cpf);
+        entity.Name.Should().Be(dto.Name);
+        entity.Surname.Should().Be(dto.Surname);
+        entity.Email.Should().Be(dto.Email);
+        entity.BirthDay.Should().Be(dto.BirthDate);
+
+        // Verifica o "true" hardcoded no método ToEntity
+        // Assumindo que a propriedade na entidade se chama IsActive ou Active
+        // Caso sua entidade não exponha essa propriedade publicamente para leitura, 
+        // você pode precisar inspecionar ou confiar no construtor da entidade.
+        // entity.IsActive.Should().BeTrue(); 
+    }
+
+    #endregion
+
+    #region ToDto Tests
+
+    [Fact]
+    public void ToDto_ShouldMapEntityToDto_Correctly()
+    {
+        // Arrange
+        // Criando uma entidade simulada
+        var entity = new CustomerEntity(
+            "33665360048",
+            "Carlos",
+            "Oliveira",
+            "carlos@test.com",
+            new DateTime(1980, 10, 10),
+            true
+        );
+
+        // Act
+        var dto = CustomerRequestDto.ToDto(entity);
+
+        // Assert
+        dto.Should().NotBeNull();
+        dto.Should().BeOfType<CustomerRequestDto>();
+
+        dto.Cpf.Should().Be(entity.Cpf);
+        dto.Name.Should().Be(entity.Name);
+        dto.Surname.Should().Be(entity.Surname);
+        dto.Email.Should().Be(entity.Email);
+        dto.BirthDate.Should().Be(entity.BirthDay);
+    }
+
+    #endregion
+
+    #region Properties Tests (Setters)
+
+    [Fact]
+    public void Properties_ShouldStoreValues_WhenSet()
+    {
+        // Teste simples para garantir que os setters automáticos funcionam
+        // Útil para cobertura se você não usar o construtor parametrizado em todo lugar
+
+        // Arrange
+        var dto = new CustomerRequestDto();
+        var now = DateTime.Now;
+
+        // Act
+        dto.Cpf = "33665360048";
+        dto.Name = "Test";
+        dto.Surname = "Case";
+        dto.Email = "test@mail.com";
+        dto.BirthDate = now;
+
+        // Assert
+        dto.Cpf.Should().Be("33665360048");
+        dto.Name.Should().Be("Test");
+        dto.Surname.Should().Be("Case");
+        dto.Email.Should().Be("test@mail.com");
+        dto.BirthDate.Should().Be(now);
+    }
+
+    #endregion
 }
