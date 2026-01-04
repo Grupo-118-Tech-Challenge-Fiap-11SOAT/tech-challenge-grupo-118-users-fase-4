@@ -31,5 +31,5 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<Domain.Customer.Entities.Customer?> GetByIdAsync(int id, CancellationToken cancellationToken) => await _dbContext.Customers.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
-    public async Task<Domain.Customer.Entities.Customer?> GetByCpfAsync(string cpf, CancellationToken cancellationToken) => await _dbContext.Customers.FirstOrDefaultAsync(x => x.Cpf == cpf, cancellationToken);
+    public async Task<Domain.Customer.Entities.Customer?> GetByCpfAsync(string Cpf, CancellationToken cancellationToken) => await _dbContext.Customers.FirstOrDefaultAsync(x => x.Cpf == Cpf, cancellationToken);
 }
