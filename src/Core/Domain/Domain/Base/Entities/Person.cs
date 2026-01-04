@@ -1,5 +1,8 @@
-﻿namespace Domain.Base.Entities;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Domain.Base.Entities;
+
+[ExcludeFromCodeCoverage]
 public abstract class Person : BaseEntity
 {
     public string Cpf { get; protected set; }

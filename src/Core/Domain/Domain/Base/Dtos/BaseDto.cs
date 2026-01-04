@@ -1,5 +1,8 @@
-﻿namespace Domain.Base.Dtos;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Domain.Base.Dtos;
+
+[ExcludeFromCodeCoverage]
 public class BaseDto
 {
     public BaseDto()

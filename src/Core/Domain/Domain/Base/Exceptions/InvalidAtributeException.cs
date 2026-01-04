@@ -1,5 +1,8 @@
-﻿namespace Domain.Base.Exceptions;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Domain.Base.Exceptions;
+
+[ExcludeFromCodeCoverage]
 public class InvalidAtributeException : DomainException
 {
     /// <summary>
