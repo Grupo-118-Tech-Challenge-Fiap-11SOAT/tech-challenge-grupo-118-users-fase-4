@@ -29,6 +29,16 @@ RUN dotnet publish "TechChallengeUsers.API.csproj" \
 FROM base AS final
 WORKDIR /app
 
+ENV \
+    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
+    LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8
+
+RUN apk add --no-cache \
+    icu-data-full \
+    icu-libs \
+    curl
+
 COPY --from=publish /app/publish .
 
 USER app
