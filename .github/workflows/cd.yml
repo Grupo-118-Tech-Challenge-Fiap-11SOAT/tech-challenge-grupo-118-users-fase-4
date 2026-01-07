@@ -41,5 +41,5 @@ jobs:
         }
       variables_mapping: |
         {
-          "POC_IMAGE_TAG": "${{ github.event.inputs.image_tag }}",
+          "POC_IMAGE_TAG": "${{ github.event.inputs.image_tag }}"
         }
