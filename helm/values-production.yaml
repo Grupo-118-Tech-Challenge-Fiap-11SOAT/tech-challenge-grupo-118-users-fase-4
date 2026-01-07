@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: ${DOCKER_REGISTRY}
-  imageName: tech-challenge-grupo-118-payments-fase-4
+  imageName: tech-challenge-grupo-118-users-fase-4
   tag: "${POC_IMAGE_TAG}"  # Will be set via --set or CI/CD
   pullPolicy: IfNotPresent
 
