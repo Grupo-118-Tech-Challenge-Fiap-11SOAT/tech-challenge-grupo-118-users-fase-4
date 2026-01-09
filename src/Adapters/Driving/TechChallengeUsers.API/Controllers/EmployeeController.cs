@@ -103,7 +103,7 @@ public class EmployeeController : ControllerBase
     /// <returns>An object representing the employee, or a 404 status if not found.</returns>  
     [ProducesResponseType(typeof(EmployeeResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpGet("{id}")]
+    [HttpGet("{id}"), ActionName("GetByIdAsync")]
     public async Task<ActionResult<EmployeeResponseDto>> GetByIdAsync(int id, CancellationToken cancellationToken)
     {
         var employee = await _employeeManager.GetByIdAsync(id, cancellationToken);
